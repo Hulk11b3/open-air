@@ -90,6 +90,7 @@
   .trk .dur{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-dim);flex-shrink:0}
   .addbtn{background:none;border:none;color:var(--ink-faint);cursor:pointer;flex-shrink:0;padding:4px;opacity:0;transition:color .15s,opacity .15s;display:flex}
   .trk:hover .addbtn{opacity:1}.addbtn:hover{color:var(--amber)}
+  @media(hover:none){.addbtn{opacity:1}}
   .nowbars{display:inline-flex;gap:2px;align-items:flex-end;height:12px;width:14px}
   .nowbars i{width:3px;background:var(--amber);animation:eq 1s ease-in-out infinite}
   .nowbars i:nth-child(2){animation-delay:.2s}.nowbars i:nth-child(3){animation-delay:.4s}
@@ -263,7 +264,7 @@
 
 <script>
 // ===== CONFIG — paste your keys here (or leave blank) ============================
-let CLIENT_ID = "709fa152";    // Jamendo Client ID (music). Blank → shows music setup screen.
+let CLIENT_ID = "b496887c";    // Jamendo Client ID (music). Blank → shows music setup screen.
 let SUPABASE_URL = "https://dpabltpcspqezqvqggye.supabase.co";         // e.g. "https://xxxxxxxx.supabase.co" — blank → playlists stay on this device
 let SUPABASE_ANON_KEY = "sb_publishable_pc3myzL9n7m0-QZFcTTrtw_tSEI-t6e";    // Supabase anon (public) key. Safe in the client ONLY with Row Level Security ON.
 const ENABLE_GOOGLE = false;   // true → offer Google sign-in alongside the email magic link
@@ -520,7 +521,7 @@ function renderAudioList(label,fresh){
     html+='<div class="info"><div class="nm">'+esc(t.title)+'</div>'+(showThumb?'<div class="ar">'+esc(t.artist)+'</div>':'')+'</div>';
     if(showThumb)html+='<div class="al">'+esc(t.album)+'</div>';
     html+='<div class="dur">'+(t.dur?fmt(t.dur):'--:--')+'</div>';
-    if(mode==='music')html+='<button class="addbtn" title="Add to playlist">+</button>';
+    if(mode==='music'||mode==='audiobooks')html+='<button class="addbtn" title="Add to playlist">+</button>';
     row.innerHTML=html;
     row.onclick=(e)=>{if(e.target.closest('.addbtn'))return;playIndex(i);};
     const ab=row.querySelector('.addbtn');if(ab)ab.onclick=(e)=>{e.stopPropagation();addToPlaylist(queue[i]);};
